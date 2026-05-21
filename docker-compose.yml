@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # 1. Base de Datos MySQL
   mysql:
@@ -39,7 +37,7 @@ services:
     container_name: erp_general_frontend
     restart: always
     ports:
-      - "5176:5173" # Mapeado al 5176 para no chocar con otros proyectos
+      - "5177:5173" # Mapeado al 5177 para no chocar con otros proyectos
     volumes:
       - ./frontend:/app
       - /app/node_modules
