@@ -20,9 +20,10 @@ services:
     container_name: erp_backend
     restart: always
     ports:
-      - "3000:3000"
+      - "9000:9000"
     
     environment:
+      PORT: "9000"
       # Conexión a la base de datos (host = nombre del servicio 'mysql')
       DATABASE_URL: "mysql://root:PodocureSeguro2026@mysql:3306/gestion_db"
       JWT_SECRET: "2026Podocure56107"

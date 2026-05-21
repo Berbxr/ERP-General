@@ -14,7 +14,7 @@ COPY . .
 # Generamos el cliente de prisma
 RUN npx prisma generate
 
-EXPOSE 3000
+EXPOSE 9000
 
 # Script de inicio
 CMD ["sh", "-c", "npx prisma db push && node src/index.js"]
