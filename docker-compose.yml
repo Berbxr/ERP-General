@@ -10,7 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: PodocureSeguro2026
       MYSQL_DATABASE: gestion_db
     ports:
-      - "3307:3306" # Mapeado al 3307 para no chocar con algun mysql local
+      - "3309:3306" # Mapeado al 3309 para no chocar con otros proyectos
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -39,7 +39,7 @@ services:
     container_name: erp_general_frontend
     restart: always
     ports:
-      - "5173:5173" # Entrarás por localhost puerto
+      - "5176:5173" # Mapeado al 5176 para no chocar con otros proyectos
     volumes:
       - ./frontend:/app
       - /app/node_modules
