@@ -1,0 +1,11 @@
+# --- Dependencias (Lo más importante) ---
+node_modules/
+npm-debug.log
+
+# --- Archivos de sistema y entorno ---
+.DS_Store
+dist/
+build/
+.vscode/
+.idea/
+

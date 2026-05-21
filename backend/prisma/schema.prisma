@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// --- 1. CLIENTES ---
+model Cliente {
+  id       Int      @id @default(autoincrement())
+  nombre   String
+  email    String?
+  telefono String?
+  citas    Cita[]   // Relación con citas
+}
+
+// --- 2. INVENTARIO ---
+model Producto {
+  id          Int     @id @default(autoincrement())
+  nombre      String
+  marca       String?
+  stock       Int
+  stockMinimo Int     @default(5)
+  precioCosto Float   @default(0)
+  precioVenta Float
+}
+
+// --- 3. CITAS ---
+model Cita {
+  id       Int      @id @default(autoincrement())
+  fecha    DateTime // Fecha y hora
+  motivo   String   // Ej: "Revisión frenos"
+  estado   String   @default("Pendiente") 
+   
+  // Relación: Cita pertenece a Cliente
+  clienteId Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+  ventas    Venta[]
+}
+
+// --- 4. SERVICIO ---
+model Servicio {
+  id          Int     @id @default(autoincrement())
+  nombre      String
+  descripcion String?
+  
+  ventas      Venta[]      // Relación con las ventas
+  comisiones  Comision[]   // <--- ¡LÍNEA AGREGADA (Corrección)!
+}
+
+// --- 5. EMPLEADO ---
+model Empleado {
+  id     Int     @id @default(autoincrement())
+  nombre String
+  
+  ventas     Venta[]
+  comisiones Comision[]    // <--- ¡LÍNEA AGREGADA (Corrección)!
+}
+
+// --- 6. VENTAS (Cobro final) ---
+model Venta {
+  id              Int      @id @default(autoincrement())
+  fecha           DateTime @default(now())
+  
+  monto           Float    // El costo real cobrado
+  metodoPago      String   // Efectivo, Tarjeta, etc.
+  requiereFactura Boolean  // Si/No
+   
+  // Relaciones
+  citaId     Int?      // Opcional: vinculada a una cita del calendario
+  cita       Cita?     @relation(fields: [citaId], references: [id])
+   
+  empleadoId Int
+  empleado   Empleado  @relation(fields: [empleadoId], references: [id])
+   
+  servicioId Int
+  servicio   Servicio  @relation(fields: [servicioId], references: [id])
+}
+
+// --- 7. COMISIONES ---
+model Comision {
+  id          Int      @id @default(autoincrement())
+  empleadoId  Int
+  servicioId  Int
+  porcentaje  Float    // Ejemplo: 0.15 para 15%
+   
+  empleado    Empleado @relation(fields: [empleadoId], references: [id])
+  servicio    Servicio @relation(fields: [servicioId], references: [id])
+
+  @@unique([empleadoId, servicioId]) // Evita duplicados
+}
+
+// --- 8. SALIDAS ---
+model Gasto {
+  id      Int      @id @default(autoincrement())
+  motivo  String
+  monto   Float
+  fecha   DateTime @default(now())
+}
+
+// --- 9. USUARIOS ---
+
+model Usuarios {
+  id       Int    @id @default(autoincrement())
+  usuario    String @unique
+  password String
+  nombre   String
+  rol      String // "ADMIN" o "EMPLEADO"
+}

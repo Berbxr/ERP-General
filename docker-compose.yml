@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # 1. Base de Datos MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: erp_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: PodocureSeguro2026
+      MYSQL_DATABASE: gestion_db
+    ports:
+      - "3307:3306" # Mapeado al 3307 para no chocar con algun mysql local
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # 2. Backend (NodeJS + Express + Prisma)
+  backend:
+    build: ./backend
+    container_name: erp_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    
+    environment:
+      # Conexión a la base de datos (host = nombre del servicio 'mysql')
+      DATABASE_URL: "mysql://root:PodocureSeguro2026@mysql:3306/gestion_db"
+      JWT_SECRET: "2026Podocure56107"
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # 3. Frontend (React + Vite)
+  frontend:
+    build: ./frontend
+    container_name: erp_frontend
+    restart: always
+    ports:
+      - "5173:5173" # Entrarás por localhost puerto
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true # Necesario para hot-reload en Windows
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

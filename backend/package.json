@@ -1,0 +1,22 @@
+{
+    "name": "backend-erp",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
+        "prisma:generate": "prisma generate",
+        "db:push": "npx prisma db push --accept-data-loss",
+        "prisma:push": "prisma db push"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1",
+        "prisma": "^5.22.0"
+    }
+}
