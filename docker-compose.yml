@@ -4,7 +4,7 @@ services:
   # 1. Base de Datos MySQL
   mysql:
     image: mysql:8.0
-    container_name: erp_mysql
+    container_name: erp_general_mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: PodocureSeguro2026
@@ -17,7 +17,7 @@ services:
   # 2. Backend (NodeJS + Express + Prisma)
   backend:
     build: ./backend
-    container_name: erp_backend
+    container_name: erp_general_backend
     restart: always
     ports:
       - "9000:9000"
@@ -36,7 +36,7 @@ services:
   # 3. Frontend (React + Vite)
   frontend:
     build: ./frontend
-    container_name: erp_frontend
+    container_name: erp_general_frontend
     restart: always
     ports:
       - "5173:5173" # Entrarás por localhost puerto
