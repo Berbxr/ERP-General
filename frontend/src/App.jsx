@@ -9,7 +9,7 @@ import Inventario from './pages/Inventario';
 import Servicios from './pages/Servicios';
 import Finanzas from './pages/Finanzas';
 import Reportes from './pages/Reportes';
-import Logo from './img/pdocure.svg';
+import Logo from './img/inet.svg';
 
 // --- LOGIN SCREEN ACTUALIZADO (USUARIO) ---
 const LoginScreen = ({ onLogin }) => {
@@ -106,7 +106,7 @@ const App = () => {
           <div style={logoContainerStyle}>
             <img src={Logo} alt="Podocure" style={{ width: '50px', height: 'auto' }} />
             <div>
-              <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: '#fff' }}>PODOCURE</h2>
+              <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: '#fff' }}>iNET</h2>
               {/* Mostramos el nombre del usuario logueado */}
               <span style={{ fontSize: '0.8rem', color: '#90b083', letterSpacing: '1px' }}>
                 {user.usuario ? user.usuario.toUpperCase() : 'USUARIO'}
