@@ -116,7 +116,7 @@ const App = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
             <NavItem to="/" icon={LayoutDashboard} label="Inicio" />
-        {/* <NavItem to="/citas" icon={Calendar} label="Citas" /> */}
+        {   <NavItem to="/citas" icon={Calendar} label="Citas" /> }
             <NavItem to="/clientes" icon={Users} label="Clientes" />
             <NavItem to="/inventario" icon={Package} label="Inventario" />
             <NavItem to="/servicios" icon={Scissors} label="Servicios" />
